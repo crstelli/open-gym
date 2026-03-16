@@ -2,27 +2,25 @@ import { AppError } from "@lib/app-error.js";
 import bcrypt from "bcrypt";
 import * as repository from "./auth.repository.js";
 
-import type { UserData } from "@shared/types/auth.js";
 import { checkPassword } from "@lib/password.js";
+import { signToken } from "@lib/token.js";
 
-export async function signup(userData: UserData) {
-  if (userData.password !== userData.confirmPassword) {
-    throw new AppError(400, "Passwords do not match");
-  }
+export async function signup(email: string, password: string) {
+  const hashedPassword = await bcrypt.hash(password, 12);
 
-  const hashedPassword = await bcrypt.hash(userData.password, 12);
-  const user = await repository.createUser({ ...userData, password: hashedPassword });
+  const user = await repository.createUser({ email, password: hashedPassword });
   const responseUser = { email: user.email, id: user.id };
 
   return responseUser;
 }
 
-export async function signin(userData: UserData) {
-  const user = await repository.findUserByEmail(userData.email);
+export async function signin(email: string, password: string) {
+  const user = await repository.findUserByEmail(email);
   if (!user) throw new AppError(401, "Invalid email or password");
 
-  const isPasswordValid = await checkPassword(userData.password, user.password);
+  const isPasswordValid = await checkPassword(password, user.password);
   if (!isPasswordValid) throw new AppError(401, "Invalid email or password");
 
-  const token = "dummy-token"; // Replace with actual
+  const token = await signToken(user.id);
+  return { token };
 }
