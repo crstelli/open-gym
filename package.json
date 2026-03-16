@@ -1,0 +1,20 @@
+{
+  "name": "express-react-template",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\""
+  },
+  "keywords": [],
+  "author": "Giuseppe Crescitelli",
+  "license": "ISC",
+  "type": "commonjs",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}
