@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
 import { AppError } from "@lib/app-error.js";
 
-const appEnvironment = process.env.NODE_ENV;
-if (!appEnvironment) throw new Error("NODE_ENV is not defined");
+import { NODE_ENV } from "@lib/dot-env.js";
+if (!NODE_ENV) throw new Error("NODE_ENV is not defined");
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function errorHandler(err: Error | AppError, _: Request, res: Response, __: NextFunction) {
@@ -16,7 +16,7 @@ function errorHandler(err: Error | AppError, _: Request, res: Response, __: Next
     resObject.code = err.code;
   }
 
-  switch (appEnvironment) {
+  switch (NODE_ENV) {
     case "production":
       resObject.message = "An error occurred";
       break;

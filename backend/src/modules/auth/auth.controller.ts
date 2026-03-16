@@ -8,3 +8,7 @@ export const signup = catchAsync(async (req: Request, res: Response) => {
 
   res.status(201).json({ user });
 });
+
+export const signin = catchAsync(async (req: Request, res: Response) => {
+  const token = await services.signin(req.body);
+});

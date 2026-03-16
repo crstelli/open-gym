@@ -1,10 +1,10 @@
 import { Pool } from "pg";
+import { DATABASE_URL } from "@lib/dot-env.js";
 
-const URL = process.env.DATABASE_URL;
-if (!URL) throw new Error("DATABASE_URL environment variable is not set");
+if (!DATABASE_URL) throw new Error("DATABASE_URL environment variable is not set");
 
 export const db = new Pool({
-  connectionString: URL,
+  connectionString: DATABASE_URL,
 });
 
 console.log("Database connection pool created");

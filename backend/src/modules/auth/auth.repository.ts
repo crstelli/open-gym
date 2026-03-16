@@ -7,3 +7,10 @@ export async function createUser(userData: UserDBEntry) {
   const user = res.rows[0];
   return user;
 }
+
+export async function findUserByEmail(email: string) {
+  const res = await db.query("SELECT * FROM users WHERE email = $1", [email]);
+
+  const user = res.rows[0];
+  return user;
+}
