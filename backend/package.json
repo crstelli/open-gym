@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"tsc --watch\" \"node --watch dist/server.js\"",
+    "dev": "concurrently \"tsc --watch\" \"tsc-alias --watch && node --watch dist/server.js\"",
     "lint": "eslint"
   },
   "keywords": [],
@@ -12,20 +12,26 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "pg": "^8.20.0",
+    "tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.0",
+    "@types/pg": "^8.18.0",
     "concurrently": "^9.2.1",
     "eslint": "^10.0.3",
     "globals": "^17.4.0",
     "jiti": "^2.6.1",
+    "tsc-alias": "^1.8.16",
     "typescript-eslint": "^8.57.0"
   }
 }
