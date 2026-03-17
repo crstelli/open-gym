@@ -3,6 +3,7 @@ import type { Request, Response } from "express";
 import { catchAsync } from "@lib/catch-async.js";
 import { AppError } from "@lib/app-error.js";
 import * as services from "./auth.services.js";
+import { sendSuccess } from "@lib/send-success.js";
 
 export const signup = catchAsync(async (req: Request, res: Response) => {
   const { email, password, confirmPassword } = req.body;
@@ -11,7 +12,8 @@ export const signup = catchAsync(async (req: Request, res: Response) => {
   if (password !== confirmPassword) throw new AppError(400, "Password and confirm password do not match");
 
   const user = await services.signup(email, password);
-  res.status(201).json({ user });
+  const userRes = { id: user.id, email: user.email };
+  sendSuccess(res, 201, { user: userRes }, "User created successfully");
 });
 
 export const signin = catchAsync(async (req: Request, res: Response) => {
@@ -20,5 +22,5 @@ export const signin = catchAsync(async (req: Request, res: Response) => {
   if (!email || !password) throw new AppError(400, "Email and password are required");
 
   const token = await services.signin(email, password);
-  res.status(200).json({ token });
+  sendSuccess(res, 200, { token }, "User signed in successfully");
 });

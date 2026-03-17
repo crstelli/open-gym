@@ -22,5 +22,5 @@ export async function signin(email: string, password: string) {
   if (!isPasswordValid) throw new AppError(401, "Invalid email or password");
 
   const token = await signToken(user.id);
-  return { token };
+  return token;
 }
