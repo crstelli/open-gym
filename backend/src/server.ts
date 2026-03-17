@@ -9,11 +9,6 @@ process.on("uncaughtException", (err: Error) => {
 });
 
 async function startServer() {
-  if (!SERVER_PORT) {
-    console.error("SERVER_PORT is not defined in the environment variables.");
-    process.exit(1);
-  }
-
   const server = app.listen(SERVER_PORT, () => {
     console.log(`Server started on port ${SERVER_PORT}.`);
   });
