@@ -7,12 +7,14 @@ import { sendSuccess } from "@lib/send-success.js";
 import { addJWTCookie } from "@lib/response.js";
 
 export const signup = catchAsync(async (req: Request, res: Response) => {
-  const { email, password, confirmPassword } = req.body;
+  const { email, full_name, password, confirm_password } = req.body;
 
-  if (!email || !password || !confirmPassword) throw new AppError(400, "Email, password and confirm password are required");
-  if (password !== confirmPassword) throw new AppError(400, "Password and confirm password do not match");
+  if (!email || !full_name || !password || !confirm_password)
+    throw new AppError(400, "Email, full name, password and confirm password are required");
 
-  const user = await services.signup(email, password);
+  if (password !== confirm_password) throw new AppError(400, "Password and confirm password do not match");
+
+  const user = await services.signup(email, full_name, password);
   const userRes = { id: user.id, email: user.email };
   sendSuccess(res, 201, { user: userRes }, "User created successfully");
 });
