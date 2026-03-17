@@ -1,5 +1,5 @@
 import { app } from "./app.js";
-import { SERVER_PORT } from "@lib/dot-env.js";
+import { SERVER_PORT } from "@config/dot-env.js";
 
 process.on("uncaughtException", (err: Error) => {
   console.log("Uncaught Exception: Shutting the server down...");

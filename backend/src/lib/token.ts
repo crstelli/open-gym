@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import type { SignOptions } from "jsonwebtoken";
 
-import { JWT_SECRET, JWT_EXPIRES_IN } from "@lib/dot-env.js";
+import { JWT_SECRET, JWT_EXPIRES_IN } from "@config/dot-env.js";
 if (!JWT_SECRET || !JWT_EXPIRES_IN) throw new Error("JWT configuration is missing");
 
 export async function signToken(userId: string) {

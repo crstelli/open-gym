@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { DATABASE_URL } from "@lib/dot-env.js";
+import { DATABASE_URL } from "@config/dot-env.js";
 
 if (!DATABASE_URL) throw new Error("DATABASE_URL environment variable is not set");
 
