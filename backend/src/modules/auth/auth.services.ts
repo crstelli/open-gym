@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import * as repository from "./auth.repository.js";
 
 import { checkPassword } from "@lib/password.js";
-import { signToken } from "@lib/token.js";
+import { signToken } from "@lib/jwt.js";
 
 export async function signup(email: string, full_name: string, password: string) {
   const hashedPassword = await bcrypt.hash(password, 12);

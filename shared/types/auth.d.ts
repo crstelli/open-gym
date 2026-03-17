@@ -9,5 +9,12 @@ export interface UserData {
 export interface UserDBEntry {
   email: string;
   full_name: string;
+
   password_hash: string;
+}
+
+export interface UserInfo {
+  id: number;
+  email: string;
+  full_name: string;
 }
