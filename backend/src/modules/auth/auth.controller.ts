@@ -1,9 +1,10 @@
 import type { Request, Response } from "express";
+import * as services from "./auth.services.js";
 
 import { catchAsync } from "@lib/catch-async.js";
 import { AppError } from "@lib/app-error.js";
-import * as services from "./auth.services.js";
 import { sendSuccess } from "@lib/send-success.js";
+import { addJWTCookie } from "@lib/response.js";
 
 export const signup = catchAsync(async (req: Request, res: Response) => {
   const { email, password, confirmPassword } = req.body;
@@ -22,5 +23,7 @@ export const signin = catchAsync(async (req: Request, res: Response) => {
   if (!email || !password) throw new AppError(400, "Email and password are required");
 
   const token = await services.signin(email, password);
+
+  addJWTCookie(res, token);
   sendSuccess(res, 200, { token }, "User signed in successfully");
 });
