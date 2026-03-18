@@ -1,3 +1,5 @@
+import type { CustomerData } from "@shared/types/customers.js";
+
 import * as repository from "./customers.repository.js";
 
 export async function getAll() {
@@ -10,13 +12,13 @@ export async function getById(id: string) {
   return customer;
 }
 
-export async function create(data: any) {
-  const customer = await repository.create(data);
+export async function create(customerData: CustomerData) {
+  const customer = await repository.create(customerData);
   return customer;
 }
 
-export async function update(id: string, data: any) {
-  const customer = await repository.update(id, data);
+export async function update(id: string, customerData: CustomerData) {
+  const customer = await repository.update(id, customerData);
   return customer;
 }
 

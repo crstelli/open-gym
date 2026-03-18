@@ -1,4 +1,5 @@
 import { db } from "@config/database.js";
+import type { CustomerData } from "@shared/types/customers.js";
 
 export async function findAll() {
   const res = await db.query("SELECT * FROM customers");
@@ -10,13 +11,23 @@ export async function findById(id: string) {
   return res.rows[0];
 }
 
-export async function create(_data: unknown) {
-  const res = await db.query("INSERT INTO customers DEFAULT VALUES RETURNING *");
+export async function create(customerData: CustomerData) {
+  const { user_id, subscription_expiration } = customerData;
+
+  const res = await db.query("INSERT INTO customers (user_id, subscription_expiration) VALUES ($1, $2) RETURNING *", [
+    user_id,
+    subscription_expiration,
+  ]);
   return res.rows[0];
 }
 
-export async function update(id: string, _data: unknown) {
-  const res = await db.query("UPDATE customers SET id = $1 WHERE id = $1 RETURNING *", [id]);
+export async function update(id: string, customerData: CustomerData) {
+  const { user_id, subscription_expiration } = customerData;
+  const res = await db.query("UPDATE customers SET user_id = $1, subscription_expiration = $2 WHERE id = $3 RETURNING *", [
+    user_id,
+    subscription_expiration,
+    id,
+  ]);
   return res.rows[0];
 }
 
