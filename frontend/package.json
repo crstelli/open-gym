@@ -11,7 +11,13 @@
   },
   "dependencies": {
     "@mantine/core": "^8.3.18",
+    "@mantine/dates": "^8.3.18",
     "@mantine/hooks": "^8.3.18",
+    "@mantine/modals": "^8.3.18",
+    "@tabler/icons-react": "^3.40.0",
+    "ag-grid-community": "^35.1.0",
+    "ag-grid-react": "^35.1.0",
+    "dayjs": "^1.11.20",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
